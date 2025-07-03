@@ -4,7 +4,7 @@ import Editor from '@monaco-editor/react';
 import { MdLightMode } from "react-icons/md";
 import { AiOutlineExpandAlt } from "react-icons/ai";
 import { apibase_url } from '../helper';
-import { useParams } from 'react-router-dom';
+import { data, useParams } from 'react-router-dom';
 
 const Editior = () => {
   const [tab, setTab] = useState("html");
@@ -84,12 +84,17 @@ const Editior = () => {
         projId: projectID  // Use projectID here
       })
     })
-      .then(res => res.json())
-      .then(data => {
-        setHtmlCode(data.project.htmlCode);
-        setCssCode(data.project.cssCode);
-        setJSCode(data.project.jsCode);
-      });
+      .then(data =>{
+        if(data?.project){
+          setHtmlCode(data.project.htmlCode || "")
+          setCssCode(data.project.cssCode || "")
+          setJSCode(data.project.jsCode || "")
+        }
+        else{
+          console.error("No project found")
+        }
+      })
+      
   }, [projectID]);
 
    useEffect(() => {
