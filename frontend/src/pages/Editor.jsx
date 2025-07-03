@@ -14,10 +14,11 @@ const Editior = () => {
   const [htmlcode, setHtmlCode] = useState("<h1>Hello World </h1>")
   const [csscode, setCssCode] = useState("body {background-color:#f4f4f4;}");
   const [jscode, setJSCode] = useState("// some comment");
-   let {projectID} = useParams();
+
+  let {projectID} = useParams();
 
 
-  const changeTheme = () => {
+  const changeTheme = () => { 
       
     
 
@@ -84,17 +85,14 @@ const Editior = () => {
         projId: projectID  // Use projectID here
       })
     })
-      .then(data =>{
-        if(data?.project){
-          setHtmlCode(data.project.htmlCode || "")
-          setCssCode(data.project.cssCode || "")
-          setJSCode(data.project.jsCode || "")
-        }
-        else{
-          console.error("No project found")
-        }
-      })
-      
+      .then(res => res.json())
+      .then(data => {
+        setHtmlCode(data.project.htmlcode);
+        setCssCode(data.project.cssCode);
+        setJSCode(data.project.jsCode);
+      });
+
+
   }, [projectID]);
 
    useEffect(() => {
