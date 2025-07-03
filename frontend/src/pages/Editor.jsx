@@ -94,11 +94,12 @@ const Editior = () => {
 
 
   }, [projectID]);
-
+~
    useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.ctrlKey && event.key === 's') {
         event.preventDefault(); // Prevent the default save file dialog
+        console.log("CTRL+S presed")
   
         // Ensure that projectID and code states are updated and passed to the fetch request
         fetch(apibase_url + "/updateProject", {
@@ -110,9 +111,9 @@ const Editior = () => {
           body: JSON.stringify({
             userId: localStorage.getItem("userId"),
             projId: projectID,  // Make sure projectID is correct
-            htmlCode: htmlCode,  // Passing the current HTML code
-            cssCode: cssCode,    // Passing the current CSS code
-            jsCode: jsCode       // Passing the current JS code
+            htmlCode: htmlcode,  // Passing the current HTML code
+            cssCode: csscode,    // Passing the current CSS code
+            jsCode: jscode       // Passing the current JS code
           })
         })
         .then(res => res.json())
