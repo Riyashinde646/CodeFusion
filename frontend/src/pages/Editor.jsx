@@ -14,10 +14,11 @@ const Editior = () => {
   const [htmlcode, setHtmlCode] = useState("<h1>Hello World </h1>")
   const [csscode, setCssCode] = useState("body {background-color:#f4f4f4;}");
   const [jscode, setJSCode] = useState("// some comment");
-   let {projectID} = useParams();
+
+  let {projectID} = useParams();
 
 
-  const changeTheme = () => {
+  const changeTheme = () => { 
       
     
 
@@ -86,10 +87,12 @@ const Editior = () => {
     })
       .then(res => res.json())
       .then(data => {
-        setHtmlCode(data.project.htmlCode);
+        setHtmlCode(data.project.htmlcode);
         setCssCode(data.project.cssCode);
         setJSCode(data.project.jsCode);
       });
+
+
   }, [projectID]);
 
    useEffect(() => {

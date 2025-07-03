@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var bcrypt = require("bcryptjs");
 var jwt =  require("jsonwebtoken");
-var userModel = require('../models/userModel');
 var projectModel = require("../models/projectModel");
+var userModel = require('../models/userModel')
 
 
 /* GET home page. */
@@ -112,17 +112,73 @@ router.post("/deleteProject",async (req,res)=>{
   }
 });
 
-router.post("/getProject", async (req, res) => {
-  let {userId,projId} = req.body;
-  let user = await userModel.findOne({ _id: userId });
-  if (user) {
-    let project = await projectModel.findOne({ _id: projId });
-    return res.json({ success: true, message: "Project fetched successfully", project: project });
+// router.post("/getProject", async (req, res) => {
+//   let {userId,projId} = req.body;
+//   let user = await userModel.findOne({ _id: userId });
+//   if (user) {
+//     let project = await projectModel.findOne({ _id: projId });
+//     return res.json({ success: true, message: "Project fetched successfully", project: project });
+//   }
+//   else{
+//     return res.json({ success: false, message: "User not found!" });
+//   }
+// });
+
+
+
+router.post("/getProject", async (req, res) =>{
+  let { userId, projId} = req.body;
+
+  const user = await userModel.findOne({_id: userId})
+  try {
+    if(user){
+    const project = await projectModel.findOne({_id : projId});
+
+    return res.json({
+      success: true,
+      message:"Project Fetch sucessfully",
+      project: project
+    });
+    }else{
+      return res.json({
+        success: false,
+        message: "Could't Fetch Project"
+      })
+    } 
+  } catch (error) {
+    console.error("Not able to fetch project", error)
+    return res.status(500).json({
+      success: false,
+      message:"Sever Error",
+      
+    })
   }
-  else{
-    return res.json({ success: false, message: "User not found!" });
-  }
-});
+  
+})
+
+
+
+// router.post("/getProject", async (req, res) => {
+//   let { userId, projId } = req.body;
+//   console.log("Received userId:", userId);
+//   console.log("Received projId:", projId);
+
+//   try {
+//     let user = await  userModel.findOne({ _id: userId });
+//     console.log("User found?", user);
+
+//     if (user) {
+//       let project = await projectModel.findOne({ _id: projId });
+//       return res.json({ success: true, message: "Project fetched successfully", project });
+//     } else {
+//       return res.json({ success: false, message: "User not found!" });
+//     }
+//   } catch (err) {
+//     console.error("Error in /getProject:", err);
+//     return res.status(500).json({ success: false, message: "Server error" });
+//   }
+// });
+
 
 router.post("/updateProject", async (req, res) => {
   let { userId, htmlCode, cssCode, jsCode, projId } = req.body;
