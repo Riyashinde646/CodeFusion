@@ -8,4 +8,4 @@ export const removeClass = (el,className) =>{
     elem.classList.remove(className);
 };
 
-export const apibase_url = "http://localhost:3000"
+export const apibase_url = "https://codefusion-2d01.onrender.com"
