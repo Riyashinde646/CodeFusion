@@ -1,7 +1,7 @@
 
 const mongoose = require("mongoose");
 
-mongoose.connect('mongodb://localhost:27017/codeIDE');
+mongoose.connect('mongodb+srv://shinderiya23jan:riyaa@codefusion.tzn4kgb.mongodb.net/?retryWrites=true&w=majority&appName=CodeFusion');
 
 
 let userSchema = new mongoose.Schema({
