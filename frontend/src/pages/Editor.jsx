@@ -99,7 +99,7 @@ const Editior = () => {
     const handleKeyDown = (event) => {
       if (event.ctrlKey && event.key === 's') {
         event.preventDefault(); // Prevent the default save file dialog
-        console.log("CTRL+S presed")
+        console.log("CTRL+S pressed")
   
         // Ensure that projectID and code states are updated and passed to the fetch request
         fetch(apibase_url + "/updateProject", {
