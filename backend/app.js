@@ -6,7 +6,7 @@ var logger = require('morgan');
 var cors = require("cors");
 
 const corsOptions = {
-  origin: "https://code-fusion-psi.vercel.app",
+  origin: "https://codefussion.netlify.app/",
   credentials: true,
 };
 
