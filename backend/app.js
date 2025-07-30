@@ -5,6 +5,13 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require("cors");
 
+const corsOptions = {
+  origin: "https://code-fusion-psi.vercel.app",
+  credentials: true,
+};
+
+
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -20,7 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(cors());
+app.use(cors(corsOptions)); // 👈 Apply before routes
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
